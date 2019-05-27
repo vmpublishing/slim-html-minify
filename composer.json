@@ -3,7 +3,8 @@
     "description": "A minification middleware based on voku/HtmlMin",
     "type": "library",
     "require": {
-        "voku/html-min": "*@stable"
+        "voku/html-min": "*@stable",
+        "slim/slim": "<4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "*@stable"

@@ -1,0 +1,29 @@
+<?php xmlversion = "1.0"encoding = "UTF-8";?>
+<phpunit backupGlobals="false"
+  backupStaticAttributes="false"
+  colors="true"
+  bootstrap="vendor/autoload.php"
+  convertErrorsToExceptions="true"
+  convertNoticesToExceptions="true"
+  convertWarningsToExceptions="true"
+  processIsolation="false"
+  stopOnFailure="false"
+>
+
+  <php>
+    <env name="APPLICATION_ENV" value="ci" force="true" />
+  </php>
+
+  <testsuites>
+    <testsuite name="Hekate Test Suite">
+      <directory>./tests</directory>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist>
+      <directory suffix=".php">./src</directory>
+    </whitelist>
+  </filter>
+</phpunit>
+
