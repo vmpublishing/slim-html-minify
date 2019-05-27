@@ -1,0 +1,33 @@
+{
+    "name": "vmpublishing/slim-html-minify",
+    "description": "A minification middleware based on voku/HtmlMin",
+    "type": "library",
+    "require": {
+        "voku/html-min": "*@stable"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "VM\\SlimHtmlMinify\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VM\\SlimHtmlMinify\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "7.3"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dirk Gustke",
+            "email": "dirk.gustke@verticalmedia.com"
+        }
+    ]
+}
