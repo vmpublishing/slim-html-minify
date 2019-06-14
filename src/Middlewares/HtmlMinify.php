@@ -4,25 +4,29 @@ declare(strict_types=1);
 
 namespace VM\SlimHtmlMinify\Middlewares;
 
-use Slim\Http\Body;
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use voku\helper\HtmlMin;
 
-class HtmlMinify
+class HtmlMinify implements MiddlewareInterface
 {
     private $htmlMin;
+    private $container;
     private $isActive;
 
-    public function __construct(HtmlMin $htmlMin, bool $isActive = true)
+    public function __construct(HtmlMin $htmlMin, ContainerInterface $container, bool $isActive = true)
     {
         $this->htmlMin = $htmlMin;
+        $this->container = $container;
         $this->isActive = $isActive;
     }
 
-    public function __invoke(Request $request, Response $response, callable $next): Response
+    public function process(Request $request, RequestHandler $requestHandler): Response
     {
-        $response = $next($request, $response);
+        $response = $requestHandler->handle($request);
 
         if ($this->isActive) {
             $response = $this->minify($response);
@@ -35,7 +39,7 @@ class HtmlMinify
     {
         $oldHtml = $response->getBody()->__toString();
         $minifiedHtml = $this->htmlMin->minify($oldHtml);
-        $replaceBody = new Body(fopen('php://temp', 'r+'));
+        $replaceBody = $this->container->get('body');
         $replaceBody->write($minifiedHtml);
         return $response->withBody($replaceBody);
     }

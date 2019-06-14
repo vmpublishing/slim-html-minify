@@ -1,10 +1,11 @@
 {
     "name": "vmpublishing/slim-html-minify",
-    "description": "A minification middleware based on voku/HtmlMin",
+    "description": "A minification middleware based on voku/HtmlMin using psr-15",
     "type": "library",
     "require": {
         "voku/html-min": "*@stable",
-        "slim/slim": "<4.0"
+        "psr/http-server-middleware": "*@stable",
+        "psr/container": "*@stable"
     },
     "require-dev": {
         "phpunit/phpunit": "*@stable"
