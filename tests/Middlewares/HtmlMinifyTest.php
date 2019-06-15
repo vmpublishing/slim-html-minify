@@ -6,15 +6,14 @@ namespace VM\SlimHtmlMinify\Tests\Middlewares;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\StreamInterface;
-use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use VM\Psr15Mocks\Middleware;
 use VM\SlimHtmlMinify\Middlewares\HtmlMinify;
 use voku\helper\HtmlMin;
 
 class HtmlMinifyTest extends TestCase
 {
+    use Middleware;
+
     public function setup(): void
     {
         $this->buildHtmlMinify();
@@ -70,127 +69,9 @@ class HtmlMinifyTest extends TestCase
         ;
     }
 
-    private function buildRequestHandler(): void
-    {
-        $this->requestHandler = $this->getMockBuilder(RequestHandler::class)
-            ->disableOriginalConstructor()
-            ->setMethods(['handle'])
-            ->getMock()
-        ;
-    }
-
-    private function buildResponse(): void
-    {
-        $this->response = $this->getMockBuilder(Response::class)
-            ->disableOriginalConstructor()
-            ->setMethods([
-                'getStatusCode',
-                'withStatus',
-                'getReasonPhrase',
-                'getProtocolVersion',
-                'withProtocolVersion',
-                'getHeaders',
-                'hasHeader',
-                'getHeader',
-                'getHeaderLine',
-                'withHeader',
-                'withAddedHeader',
-                'withoutHeader',
-                'getBody',
-                'withBody',
-            ])
-            ->getMock()
-        ;
-    }
-
     private function destroyHtmlMin(): void
     {
         $this->htmlMin = null;
-    }
-
-    private function destroyRequestHandler(): void
-    {
-        $this->requestHandler = null;
-    }
-
-    private function destroyResponse(): void
-    {
-        $this->response = null;
-    }
-
-    private function buildRequest(): void
-    {
-        $this->request = $this->getMockBuilder(Request::class)
-            ->disableOriginalConstructor()
-            ->setMethods([
-                'getServerParams',
-                'getCookieParams',
-                'withCookieParams',
-                'getQueryParams',
-                'withQueryParams',
-                'getUploadedFiles',
-                'withUploadedFiles',
-                'getParsedBody',
-                'withParsedBody',
-                'getAttributes',
-                'getAttribute',
-                'withAttribute',
-                'withoutAttribute',
-                'getProtocolVersion',
-                'withProtocolVersion',
-                'getHeaders',
-                'hasHeader',
-                'getHeader',
-                'getHeaderLine',
-                'withHeader',
-                'withAddedHeader',
-                'withoutHeader',
-                'getBody',
-                'withBody',
-                'getRequestTarget',
-                'withRequestTarget',
-                'getMethod',
-                'withMethod',
-                'getUri',
-                'withUri',
-            ])
-            ->getMock()
-        ;
-    }
-
-    private function destroyRequest(): void
-    {
-        $this->request = null;
-    }
-
-    private function buildBody(): void
-    {
-        $this->body = $this->getMockBuilder(StreamInterface::class)
-            ->disableOriginalConstructor()
-            ->setMethods([
-                '__toString',
-                'close',
-                'detach',
-                'getSize',
-                'tell',
-                'eof',
-                'isSeekable',
-                'seek',
-                'rewind',
-                'isWritable',
-                'write',
-                'isReadable',
-                'read',
-                'getContents',
-                'getMetadata',
-            ])
-            ->getMock()
-        ;
-    }
-
-    private function destroyBody(): void
-    {
-        $this->body = null;
     }
 
     private function buildContainer(): void
